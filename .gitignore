@@ -1,0 +1,12 @@
+
+.cproject
+.mxproject
+.project
+*.xml
+*.launch
+*.o
+Debug/*
+/Drivers/*
+*.ld
+*.prefs
+*.s
