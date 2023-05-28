@@ -23,10 +23,11 @@
 extern I2C_HandleTypeDef hi2c1;
 #define BME280_I2C &hi2c1
 
-//#define SUPPORT_64BIT 		1
-#define SUPPORT_32BIT 		1
+//#define SUPPORT_64BIT 			1
+#define SUPPORT_32BIT 			1
 
-#define BME280_ADDRESS 0xEC  // SDIO is grounded, the 7 bit address is 0x76 and 8 bit address = 0x76<<1 = 0xEC
+#define BME280_ADDRESS 			0xEC  // SDIO is grounded, the 7 bit address is 0x76 and 8 bit address = 0x76<<1 = 0xEC
+#define PASCAL_TO_PSI_FACTOR	0.000145038
 
 extern float Temperature, Pressure, Humidity;
 
@@ -318,7 +319,8 @@ void BME280_Measure (void)
 			  Pressure = (BME280_compensate_P_int64 (pRaw))/256.0;  // as per datasheet, the pressure is x256
 
 #elif SUPPORT_32BIT
-			  Pressure = (BME280_compensate_P_int32 (pRaw));  // as per datasheet, the pressure is Pa
+			  Pressure = (BME280_compensate_P_int32 (pRaw));  	// as per datasheet, the pressure is Pa
+			  Pressure = PASCAL_TO_PSI_FACTOR * Pressure;		// Convert pressure from Pascal to PSI
 
 #endif
 		  }
