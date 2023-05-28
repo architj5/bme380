@@ -102,6 +102,14 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  BME280_Measure();
 	  HAL_Delay(500);
+	  if ( Temperature < 29 )
+	  {
+		  HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
+	  }
+	  else
+	  {
+		  HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
+	  }
   }
   /* USER CODE END 3 */
 }
